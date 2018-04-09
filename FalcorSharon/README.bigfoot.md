@@ -258,12 +258,15 @@ explode = (0, 0, 0, 0, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1,0.1, 0)
 plt.pie(sizes, labels=labels, colors=colors,labeldistance=1.1,explode = explode)
 plt.axis('equal')
 plt.title("Count of top grossing films and TV shows, having plots about \"Big Foot\", by decade",y=1.08)
+textstr = ("Note:\n2004-2012 correspond with the 10 years of highest Big Foot sightings\n(2000-2001, 2003-2009, and 2012).")
+props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+plt.text(1.5, 0.95, textstr, fontsize=11,verticalalignment='center', bbox=props)
 ```
 
 
 
 
-    Text(0.5,1.08,'Count of top grossing films and TV shows, having plots about "Big Foot", by decade')
+    Text(1.5,0.95,'Note:\n2004-2012 correspond with the 10 years of highest Big Foot sightings\n(2000-2001, 2003-2009, and 2012).')
 
 
 
@@ -280,7 +283,7 @@ recent_years = decades[5:18]
 
 ```python
 plt.bar(recent_years,recent_counts,align="center")
-plt.title("Count of top grossing films and TV Shows, having plots about \"Big Foot\"",y = 1.08)
+plt.title("Count of top grossing films and TV Shows, having plots about \"Big Foot\", by year",y = 1.08)
 plt.xlabel("Years")
 plt.ylabel("Number of movies/shows")
 plt.show()

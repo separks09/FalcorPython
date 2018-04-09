@@ -17,6 +17,24 @@ titles = []
 release_dates = []
 overview = []
 
+for x in range(6):
+    url = "https://api.themoviedb.org/3/discover/tv?&api_key="+api_key+"&page="+str(x+1)+"&with_keywords=9738|9951&without_genres=16,35"
+    response = requests.get(url)
+    data = response.json() 
+    for y in range(len(data["results"])):
+        titles.append(data["results"][y]["name"])
+        release_dates.append(data["results"][y]["first_air_date"])
+        overview.append(data["results"][y]["overview"])
+
+```
+
+
+```python
+#print(len(titles))
+```
+
+
+```python
 for x in range(32):
     url = "https://api.themoviedb.org/3/discover/movie?&sort_by=revenue.desc&api_key="+api_key+"&page="+str(x+1)+"&with_keywords=9738|9951"
     response = requests.get(url)
@@ -58,7 +76,7 @@ movie_data = {
 }
 
 movie_df = pd.DataFrame(data=movie_data)
-movie_df.head()
+movie_df.head(8)
 ```
 
 
@@ -91,38 +109,59 @@ movie_df.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>12</td>
-      <td>In the 22nd century, a paraplegic Marine is di...</td>
-      <td>Avatar</td>
-      <td>2009</td>
+      <td>03</td>
+      <td>The Doctor looks and seems human. He's handsom...</td>
+      <td>Doctor Who</td>
+      <td>2005</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>06</td>
-      <td>As humanity picks up the pieces, following the...</td>
-      <td>Transformers: Age of Extinction</td>
-      <td>2014</td>
+      <td>09</td>
+      <td>The exploits of FBI Special Agents Fox Mulder ...</td>
+      <td>The X-Files</td>
+      <td>1993</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>04</td>
-      <td>After a gentle alien becomes stranded on Earth...</td>
-      <td>E.T. the Extra-Terrestrial</td>
-      <td>1982</td>
+      <td>11</td>
+      <td>The adventures of a Time Lord—a time-travellin...</td>
+      <td>Doctor Who</td>
+      <td>1963</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>06</td>
-      <td>Young teenager, Sam Witwicky becomes involved ...</td>
-      <td>Transformers</td>
-      <td>2007</td>
+      <td>09</td>
+      <td>Star Trek: The Next Generation is an American ...</td>
+      <td>Star Trek: The Next Generation</td>
+      <td>1987</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>05</td>
-      <td>Agents J (Will Smith) and K (Tommy Lee Jones) ...</td>
-      <td>Men in Black 3</td>
-      <td>2012</td>
+      <td>09</td>
+      <td>Space. The Final Frontier. The U.S.S. Enterpri...</td>
+      <td>Star Trek</td>
+      <td>1966</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>10</td>
+      <td>Smallville is an American television series de...</td>
+      <td>Smallville</td>
+      <td>2001</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>07</td>
+      <td>The story of Stargate SG-1 begins about a year...</td>
+      <td>Stargate SG-1</td>
+      <td>1997</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>09</td>
+      <td>Ten years before Kirk, Spock, and the Enterpri...</td>
+      <td>Star Trek: Discovery</td>
+      <td>2017</td>
     </tr>
   </tbody>
 </table>
@@ -132,7 +171,7 @@ movie_df.head()
 
 
 ```python
-movie_df.to_csv("ufo_movies.csv")
+movie_df.to_csv("ufo_movies_tv.csv")
 ```
 
 
@@ -189,31 +228,31 @@ movies_by_year.tail()
       <th>13</th>
       <td>'14</td>
       <td>2014</td>
-      <td>20</td>
+      <td>22</td>
     </tr>
     <tr>
       <th>14</th>
       <td>'15</td>
       <td>2015</td>
-      <td>37</td>
+      <td>38</td>
     </tr>
     <tr>
       <th>15</th>
       <td>'16</td>
       <td>2016</td>
-      <td>19</td>
+      <td>24</td>
     </tr>
     <tr>
       <th>16</th>
       <td>'17</td>
       <td>2017</td>
-      <td>23</td>
+      <td>26</td>
     </tr>
     <tr>
       <th>17</th>
       <td>'18</td>
       <td>2018</td>
-      <td>2</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
@@ -230,33 +269,37 @@ counts = list(movies_by_year["Titles"])
 
 
 ```python
-# Labels for the sections of our pie chart
 labels = decades
-
-# The values of each section of the pie chart
 sizes = counts
+#print(len(labels))
+#print(len(sizes))
+```
 
+
+```python
 # The colors of each section of the pie chart
-colors = ["orange", "darkblue", "yellow", "lightskyblue","purple","pink","red","pink","red","pink","red","pink","red","pink","red","pink","green","white"]
+colors = ["yellowgreen", "darkblue", "yellow", "lightskyblue","purple","green","red","pink","red","pink","red","pink","red","pink","red","pink","orange","white","white"]
 
 # Tells matplotlib to seperate the "Python" section from the others
 explode = (0, 0, 0, 0, 0, 0, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0, 0)
 
-plt.pie(sizes, labels=labels, colors=colors,labeldistance=1.1,explode = explode)
+plt.pie(sizes, labels=labels, colors=colors,labeldistance=1.2,explode = explode)
 plt.axis('equal')
 plt.title("Count of top grossing films, having plots about \"UFOs\" or \"Aliens\", by decade",y=1.08)
-
+textstr = ("Note:\n2007-2016 correspond with the 10 years of highest UFO sightings.")
+props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+plt.text(1.5, 0.95, textstr, fontsize=11,verticalalignment='center', bbox=props)
 ```
 
 
 
 
-    Text(0.5,1.08,'Count of top grossing films, having plots about "UFOs" or "Aliens", by decade')
+    Text(1.5,0.95,'Note:\n2007-2016 correspond with the 10 years of highest UFO sightings.')
 
 
 
 
-![png](output_10_1.png)
+![png](output_13_1.png)
 
 
 
@@ -267,21 +310,21 @@ recent_years = decades[6:16]
 
 
 ```python
-plt.bar(recent_years,recent_counts,align="center")
-plt.title("Count of top grossing films, having plots about \"UFOs\" or \"Aliens\"",y = 1.08)
+plt.bar(recent_years,recent_counts,align="center",color='r')
+plt.title("Count of new movies and TV shows, having plots about \"UFOs\" or \"Aliens\", by year",y = 1.08)
 plt.xlabel("Years")
-plt.ylabel("Number of movies")
+plt.ylabel("Number of movies/TV shows")
 plt.show()
 ```
 
 
-![png](output_12_0.png)
+![png](output_15_0.png)
 
 
 
 ```python
 ufo_sightings = [3.605,4.100,3.709,3.694,4.457,6.503,6.317,6.954,5.565,4.552]
-plt.title("UFO Sightings by Year",y = 1.08)
+plt.title("UFO Sightings by Year (Top 10)",y = 1.08)
 plt.xlabel("Years")
 plt.ylabel("UFO Sightings (x1000)")
 plt.bar(recent_years,ufo_sightings,color="yellow",align="center")
@@ -295,5 +338,5 @@ plt.bar(recent_years,ufo_sightings,color="yellow",align="center")
 
 
 
-![png](output_13_1.png)
+![png](output_16_1.png)
 
