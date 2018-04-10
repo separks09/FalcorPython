@@ -33,7 +33,7 @@ for x in range(6):
 
 
 ```python
-url_tv = "https://api.themoviedb.org/3/discover/tv?&api_key="+api_key+"&page="+str(x+1)+"&with_keywords=9738|9951"
+url_tv = "https://api.themoviedb.org/3/discover/tv?&api_key="+api_key+"&page="+str(x+1)+"&with_keywords=2597|227007"
 response_tv = requests.get(url_tv)
 data_tv = response_tv.json() 
 for x in range(len(data_tv["results"])):
@@ -127,17 +127,17 @@ movie_df.head()
     </tr>
     <tr>
       <th>3</th>
-      <td>01</td>
-      <td>A documentary that explores the existence of B...</td>
-      <td>Manbeast! Myth or Monster?</td>
-      <td>1978</td>
-    </tr>
-    <tr>
-      <th>4</th>
       <td>06</td>
       <td>Mark the Lumberjack is a woodsman with a bad t...</td>
       <td>The Lumberjack of All Trades</td>
       <td>2006</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>01</td>
+      <td>A documentary that explores the existence of B...</td>
+      <td>Manbeast! Myth or Monster?</td>
+      <td>1978</td>
     </tr>
   </tbody>
 </table>
@@ -170,7 +170,7 @@ bin_labels = ["before 1959","1960s","1970s","1980s","1990s","2000","'01","'02","
 ```python
 year_df["Decade"] = pd.cut(year_df["Year"],bins,labels=bin_labels)
 movies_by_year = year_df.groupby(year_df["Decade"],as_index=False).sum()
-movies_by_year.tail()
+movies_by_year
 ```
 
 
@@ -200,6 +200,90 @@ movies_by_year.tail()
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>0</th>
+      <td>before 1959</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1960s</td>
+      <td>1968</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1970s</td>
+      <td>13831</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1980s</td>
+      <td>7939</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1990s</td>
+      <td>7985</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2000</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>'01</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>'02</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>'03</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>'04</td>
+      <td>2004</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>'05</td>
+      <td>2005</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>'06</td>
+      <td>2006</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>'07</td>
+      <td>2007</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>'08</td>
+      <td>2008</td>
+      <td>3</td>
+    </tr>
     <tr>
       <th>14</th>
       <td>'09</td>
